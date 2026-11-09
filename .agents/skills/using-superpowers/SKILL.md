@@ -49,10 +49,16 @@ These thoughts mean STOP—you're rationalizing:
 | "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
 | "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
 
+## Delegated model choices
+
+**REQUIRED SUB-SKILL:** Use `model-selection` before selecting or changing a delegated model/settings. Its sufficient-capability and total-cost policy governs all callers, including final reviews; the environment reference applies the result using supported native routing.
+
 ## Platform Adaptation
 
 If your harness appears here, read its reference file for special instructions:
 
+- VS Code (Local or Copilot harness): `references/vscode-tools.md`
+- Copilot CLI: `references/copilot-cli-tools.md`
 - Claude Code: `references/claude-code-tools.md`
 - Codex: `references/codex-tools.md`
 - Pi: `references/pi-tools.md`

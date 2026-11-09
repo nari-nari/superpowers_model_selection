@@ -54,3 +54,7 @@ If `delegate_task` is unavailable, do the work inline rather than inventing tool
 ## Task tracking
 
 Use the `todo` tool for task tracking within a session. For multi-agent task boards, use `hermes kanban` CLI if available. Treat older `TodoWrite` references as the task-tracking action.
+
+## Model selection
+
+**REQUIRED SUB-SKILL:** Use `model-selection` for concrete task-appropriate choices before dispatch. It governs model choice; this file only maps actions. Inspect the live tool schema for supported model, reasoning and context controls. Apply exact available IDs or a confirmed pinned worker; text naming a model is not routing. Record unsupported/effective unknown values and hold only affected dispatches when explicit routing cannot be applied. Use verified prices for this runtime's actual billing contract, not the Copilot snapshot by default. No global settings or MCP edits are required.

@@ -33,3 +33,7 @@ Use `subagent_spawn` to delegate work to isolated subagents. Fill prompt templat
 ## Task tracking
 
 Use `write_todos` for checklist tracking. Create one todo per skill checklist item, mark in_progress/completed as you go. If `write_todos` is unavailable, maintain a markdown task file via `write_file`/`edit_file`.
+
+## Model selection
+
+**REQUIRED SUB-SKILL:** Use `model-selection` for concrete task-appropriate choices before dispatch. It governs model choice; this file only maps actions. Inspect the live tool schema for supported model, reasoning and context controls. Apply exact available IDs or a confirmed pinned worker; text naming a model is not routing. Record unsupported/effective unknown values and hold only affected dispatches when explicit routing cannot be applied. Use verified prices for this runtime's actual billing contract, not the Copilot snapshot by default. No global settings or MCP edits are required.

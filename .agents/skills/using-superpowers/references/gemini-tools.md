@@ -61,3 +61,7 @@ These tools are unique to Gemini CLI:
 | `complete_task` | Signal that a Gemini subagent has completed and return its result to the parent agent |
 | `tracker_create_task`, `tracker_update_task`, `tracker_get_task`, `tracker_list_tasks`, `tracker_add_dependency`, `tracker_visualize` | Rich task tracker with dependency and visualization support |
 | `read_mcp_resource`, `list_mcp_resources` | MCP resource access |
+
+## Model selection
+
+**REQUIRED SUB-SKILL:** Use `model-selection` for concrete task-appropriate choices before dispatch. It governs model choice; this file only maps actions. Inspect the live tool schema for supported model, reasoning and context controls. Apply exact available IDs or a confirmed pinned worker; text naming a model is not routing. Record unsupported/effective unknown values and hold only affected dispatches when explicit routing cannot be applied. Use verified prices for this runtime's actual billing contract, not the Copilot snapshot by default. No global settings or MCP edits are required.

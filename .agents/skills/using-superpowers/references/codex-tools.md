@@ -18,9 +18,8 @@ disagree.
   `spawn_agent {fork_turns: "none"}`; the default `"all"` copies your
   entire transcript into the child. On Codex 0.145+, role files under
   `~/.codex/agents/` attach to isolated forks via `agent_type`.
-  Full-history forks accept `model` and `reasoning_effort` overrides
-  (only `agent_type` is refused there) — isolated forks are the SDD
-  default for context hygiene, not because overrides require them.
+  Check the actual spawn schema for which fork modes accept `model` and
+  `reasoning_effort` overrides; do not assume full-history forks support them.
 - **Fix rounds:** resume the implementer with `followup_task` — it
   delivers your message, triggers a turn, and transparently reloads a
   child the harness evicted. Never dispatch a fresh implementer on the
@@ -61,22 +60,20 @@ two-thirds of all wait calls were short polls that timed out.
 
 ## Model routing on spawns
 
-Every `spawn_agent` you issue — including when you are yourself a
-spawned child running a fan-out — sets `model` AND `reasoning_effort`
-explicitly, per the Model Selection rules of the skill you are
-executing. Setting `model` alone is a trap: the child's effort
-silently resets to that model's default, not to yours.
+Use `model-selection` before dispatch; it is the model-choice authority. Set
+`model` and supported `reasoning_effort` explicitly using the live spawn
+allowlist/schema, and verify their effective values where exposed. Check
+whether omission inherits or resets effort in this runtime. Record unknown
+metadata honestly rather than inferring it from the requested preset.
 
-Ask your human partner to add a machine-level backstop to
-`~/.codex/config.toml` so any spawn that slips through still routes to
-a deliberate tier instead of silently inheriting the session's most
-expensive model:
+The Copilot catalog does not price Codex contracts. Use verified prices for
+the actual contract; if unavailable, report cost comparison unavailable and
+honor an explicitly chosen session/subagent preset without claiming savings.
+Do not silently use a highest-ranked or "middle" preset as a cost proxy.
 
-```toml
-[agents]
-default_subagent_model = "<a mid-tier model from your spawn allowlist>"
-default_subagent_reasoning_effort = "medium"
-```
+A user may separately choose a machine-level default as a backstop, with an
+exact allowed ID and supported effort. This workflow does not edit global
+config, and a backstop does not replace per-task selection or confirmation.
 
 ## Environment Detection
 
