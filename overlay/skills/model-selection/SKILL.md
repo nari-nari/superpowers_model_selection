@@ -25,6 +25,8 @@ The parent chooses sufficient capability first, then predicted total cost. This 
 
 Keep selection in the parent. Give children their task, relevant artifacts and applied settings, not this entire catalog or another model-selection assignment.
 
+On worker resumption, reuse the prior selection only when its task conditions, permissions and applied settings are unchanged; otherwise re-evaluate before dispatch. Explicit user models remain fixed unless the user changes the constraint; explain an unavailable or unqualified requested choice instead of silently replacing it.
+
 ## Runtime adapters
 
 Use the adapter for the session's actual runtime: [VS Code Local or Copilot](references/runtimes/vscode.md) or [Copilot CLI](references/runtimes/copilot-cli.md). The editor's name alone does not identify the harness. These adapters are independent of the Superpowers installation directory; use live supported arguments and verified IDs.

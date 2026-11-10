@@ -1,6 +1,10 @@
 # Copilot CLI model routing
 
-Official reference checked 2026-11-10; this environment has no `copilot` executable, so native behavior is **unverified**. Use `model-selection` as the model-choice authority. Model prices apply only to the confirmed Copilot AI-credit token contract.
+Official reference rechecked 2026-11-11; this environment has no `copilot` executable, so native behavior is **unverified**. Use [model-selection](../../SKILL.md) as the model-choice authority and its [decision record](../decision-record.md). Model prices apply only to the confirmed Copilot AI-credit token contract.
+
+## Load the independent entry
+
+CLI reads its own `~/.copilot/copilot-instructions.md` (or supported modular instructions) and personal skills under `~/.copilot/skills/`. For a project use supported `.github/copilot-instructions.md`/`AGENTS.md` plus `.github/skills/model-selection/`. Include the actual entry rules and the verified `model_selection_skill` binding, then confirm the installed skill is read in a new session. Editor settings and links do not establish CLI inclusion. Inspect personal/project/plugin sources for old same-name skills before enabling the new setup. Do not replace existing user instructions wholesale.
 
 ## Confirm and dispatch
 
@@ -11,11 +15,11 @@ Official reference checked 2026-11-10; this environment has no `copilot` executa
 
 ## Optional model-pinned worker
 
-When direct selection is absent, use `.github/agents/superpowers-cli-{luna,terra,sonnet}.agent.md` for CLI-specific definitions. A Copilot worker may be shared only after actual compatibility confirmation. This is an inactive template; replace placeholders and confirm discovery before use:
+When direct selection is absent, use `independent-routing-copilot-cli-<model-key>` under `~/.copilot/agents/` or project `.github/agents/`. A VS Code Copilot worker may be shared only after actual compatibility confirmation. This is an inactive template; replace placeholders and confirm discovery before use:
 
 ```yaml
 ---
-name: superpowers-cli-luna
+name: independent-routing-copilot-cli-confirmed
 description: Use for bounded read-only tasks assigned to this model.
 model: '<account-confirmed CLI ID>'
 modelPolicy: required

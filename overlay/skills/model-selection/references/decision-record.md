@@ -17,11 +17,15 @@ Append to the existing ledger/work log; don't paste full tables into every dispa
 ```yaml
 task: task-id / role
 runtime: vscode-local | vscode-copilot | copilot-cli
+routing_revision: policy-revision
 catalog_revision: revision
+superpowers_revision: observed-revision | unknown
+runtime_version: observed-version | unknown
 profile: mechanical | integration-debugging | design-high-risk | task-review | final-review | research-audit | skill-evaluation
 model_requested: exact-runtime-id
 model_effective: exact-runtime-id | unknown
 effort_requested: supported-value | default
+effort_effective: observed-value | unknown
 context_requested: default | long_context | inherited
 context_effective: known-setting | inherited | unknown
 estimate_credits: [lower, upper] # or unknown with the missing pricing evidence
@@ -31,6 +35,8 @@ evidence: runtime-result-or-log-reference | unavailable
 ```
 
 An inherited setting needs the parent's observed setting as evidence; otherwise use unknown. A native reported model mismatch requires re-pricing and rechecking capability/permission before proceeding. If acceptable, record and continue; otherwise hold the next affected dispatch. No observation can reverse already-incurred charges.
+
+Accepted supported explicit routing with inaccessible effective metadata can proceed within the other constraints; keep effective values unknown and native acceptance unverified. When there is no supported explicit route at all, hold that dispatch. Repeated session-wide revisions may be recorded once and referenced. Worker resumption reuses the last decision only while conditions/settings are unchanged; restore this record and the policy path after compaction.
 
 ## Worked example: fictional prices, not runtime IDs
 
