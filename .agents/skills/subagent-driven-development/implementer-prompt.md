@@ -2,11 +2,17 @@
 
 Use this template when dispatching an implementer subagent.
 
+
+Controller: apply `model-selection` first; its policy governs this template.
+Apply supported effort/context controls through the runtime adapter and record
+requested/effective settings in the ledger. This is a logical dispatch template,
+not a portable native tool schema. Pass the chosen model and task artifacts to
+the worker; do not delegate price comparison or pass the entire catalog.
+
 ```
 Subagent (general-purpose):
   description: "Implement Task N: [task name]"
-  model: [MODEL — REQUIRED: choose per SKILL.md Model Selection; an omitted
-         model silently inherits the session's most expensive one]
+  model: [MODEL — REQUIRED: exact runtime ID chosen by the controller via model-selection]
   prompt: |
     You are implementing Task N: [task name]
 
@@ -86,7 +92,7 @@ Subagent (general-purpose):
 
     **How to escalate:** Report back with status BLOCKED or NEEDS_CONTEXT. Describe
     specifically what you're stuck on, what you've tried, and what kind of help you need.
-    The controller can provide more context, re-dispatch with a more capable model,
+    The controller can provide more context, re-select a model/configuration qualified for the identified deficit,
     or break the task into smaller pieces.
 
     ## Before Reporting Back: Self-Review

@@ -7,11 +7,17 @@ code quality.
 **Purpose:** Verify one task's implementation matches its requirements (nothing
 more, nothing less) and is well-built (clean, tested, maintainable)
 
+
+Controller: apply `model-selection` first; its policy governs this template.
+Apply supported effort/context controls through the runtime adapter and record
+requested/effective settings in the ledger. This is a logical dispatch template,
+not a portable native tool schema. Pass the chosen model and task artifacts to
+the worker; do not delegate price comparison or pass the entire catalog.
+
 ```
 Subagent (general-purpose):
   description: "Review Task N (spec + quality)"
-  model: [MODEL — REQUIRED: choose per SKILL.md Model Selection; an omitted
-         model silently inherits the session's most expensive one]
+  model: [MODEL — REQUIRED: exact runtime ID chosen by the controller via model-selection]
   prompt: |
     You are reviewing one task's implementation: first whether it matches its
     requirements, then whether it is well-built. This is a task-scoped gate,
@@ -188,7 +194,7 @@ Subagent (general-purpose):
 ```
 
 **Placeholders:**
-- `[MODEL]` — REQUIRED: reviewer model per SKILL.md Model Selection
+- `[MODEL]` — REQUIRED: exact runtime ID chosen via model-selection for task scope and risk
 - `[BRIEF_FILE]` — REQUIRED: the task brief file (`bash scripts/task-brief PLAN N`,
   run by its absolute path, from the working tree you're executing in,
   prints the path; same file the implementer worked from)

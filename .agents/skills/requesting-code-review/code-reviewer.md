@@ -2,11 +2,18 @@
 
 Use this template when dispatching a code reviewer subagent.
 
+Controller: use `model-selection` before dispatch; it is the model-choice
+authority. Apply supported native effort/context controls and keep the
+requested/effective record in the work log. This logical template is not a
+portable native tool schema. The reviewer receives task artifacts, not the
+pricing catalog or another model-selection assignment.
+
 **Purpose:** Review completed work against requirements and code quality standards before it cascades into more work.
 
 ```
 Subagent (general-purpose):
   description: "Review code changes"
+  model: [MODEL — REQUIRED: exact runtime ID selected by the parent via model-selection]
   prompt: |
     You are a Senior Code Reviewer with expertise in software architecture,
     design patterns, and best practices. Your job is to review completed work

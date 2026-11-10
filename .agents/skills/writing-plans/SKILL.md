@@ -176,6 +176,16 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
+## Model choices in plans
+
+Any planned delegation must require `model-selection` before dispatch, including
+final review. It is the model-choice authority: plans specify the needed task
+competence, risk, artifacts and verification, not an unspecified capability
+tier. Concrete runtime IDs/settings are selected against current account access
+and pricing at execution time, then recorded and applied through the adapter.
+Model-evaluation experiments instead fix their designated model/settings across
+variants. Never infer that Native is always cheapest or fastest.
+
 ## Execution Handoff
 
 After saving and self-reviewing the plan, link it for your human partner
@@ -189,7 +199,7 @@ them to review the plan and choose an execution method before implementation.
 **"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
 
 - **Subagent-driven** - A fresh subagent implements each task and a fresh reviewer checks it before the next one starts, then a whole-branch review at the end. Most thorough; costs a fresh context per task and per review.
-- **Native** - I implement every task myself in this session, the way this harness runs work, then one fresh reviewer on the most capable model checks the whole branch. Cheapest and fastest; no independent review until the end. Runs well with a mid-tier session model, since the plan carries the design.
+- **Native** - I implement every task myself in this session, then one fresh reviewer checks the whole branch. This avoids per-task implementation/review dispatches; total cost and time still depend on context, model choices and repair work. The reviewer is selected through `model-selection` for the actual branch risk and predicted total cost, not a fixed capability rank. The parent session model remains the user's choice.
 
 **For this plan I recommend <one of the two>, because <one sentence from the plan: how much the tasks depend on each other's interfaces, how many there are, what a shipped mistake would cost>. Does the plan capture what you want, and which approach should we use?"**
 

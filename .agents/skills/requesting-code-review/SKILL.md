@@ -31,9 +31,18 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 **2. Dispatch code reviewer subagent:**
 
-Dispatch a `general-purpose` subagent, filling the template at [code-reviewer.md](code-reviewer.md)
+**REQUIRED SUB-SKILL:** Use `model-selection` first. Its policy governs model
+choice for task, scoped re-review and final whole-branch review. Qualify for
+the actual diff risk, compare predicted completion costs, and record the exact
+ID/settings and requested/effective evidence in the existing work log.
+
+Dispatch a `general-purpose` subagent through the runtime adapter with that
+explicit model, filling [code-reviewer.md](code-reviewer.md). Keep selection
+and pricing comparison in the parent; pass only task/diff artifacts and the
+applied settings to the reviewer. Omitted-model inheritance is not selection.
 
 **Placeholders:**
+- `{MODEL}` - Exact runtime model ID selected by the parent via model-selection
 - `{DESCRIPTION}` - Brief summary of what you built
 - `{PLAN_OR_REQUIREMENTS}` - What it should do
 - `{BASE_SHA}` - Starting commit
