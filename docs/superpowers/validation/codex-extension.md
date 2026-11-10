@@ -4,7 +4,7 @@
 
 ## 実行環境と範囲
 
-管理変更は隔離branch `feat/codex-extension-validation`。元mainと元の未追跡仕様・計画を保持。ChatGPTアカウントによるPlusログインはユーザー回答で確認。現在利用中の枠が含有枠か追加クレジットか、speedと残量、対象アカウントの実モデルIDは未確認。
+管理変更は隔離branch `feat/codex-extension-validation`。元mainと元の未追跡仕様・計画を保持。ChatGPT Plusはユーザー回答とruntimeで確認。Sol／Lunaの各1試行は完了し、要求引数・runtime設定・fixture・子別トークンを確認した。応答単位の課金bucket、provider実効speed・モデル、クレジット実費はunknown。
 
 管理側のこの会話は拡張由来と確認できていない。GUI操作ツールなし。CLIで推論を実行して代理試験にはしない。別のCodex拡張会話から事前確認結果を受領し、そのsession metadataと指示本文を独立照合した。稼働拡張はユーザーのRunning Extensions確認により `26.51021.22027`、当該拡張会話のエンジンは `0.164.0-alpha.11.1`。拡張側の有効Superpowersはmanifest宣言v7.0.1で、上流commit・原本一致・基準v7.0.2との互換性は未検証。
 
@@ -14,11 +14,11 @@
 | --- | --- | --- | --- |
 | CX01 | 拡張会話の出所と稼働版・エンジン版・本体の有効ソースを確認 | unverified | VS Code稼働版・上流commit・基準版互換性は未取得。後述の部分証拠を保持 |
 | CX02 | 所有ハッシュと原本を照合 | pass | native session metadata・world_state・読込call/outputを独立確認。確認した会話と列挙ソースの範囲に限定 |
-| CX03 | 正式スキーマ、2候補と同一windowのUI利用可否を確認 | unverified | 2子の呼出し・独立した実効IDはまだ未取得 |
-| CX04 | 拒否・fallback・未知設定の期待動作を定義 | unverified | 拡張で未再現 |
+| CX03 | 正式指定、順次2子実行、runtime設定とfixtureを独立照合 | unverified | 経路・runtime設定・fixtureは確認済み。provider返却モデル／推論は取得できず、全面適用は未検証 |
+| CX04 | 要求値・runtime設定・provider値を分離 | unverified | 局所拒否を保証する根拠がなく拒否枝は未実施。Auto／fallback等も未再現 |
 | CX05 | 既存S01・S02・S05・S08を再利用 | unverified | 実機の判断試験未実施 |
 | CX06 | Plusをruntimeでも確認。追加クレジットなしの観測あり | unverified | 含有枠を支持するが応答単位bucket・換算根拠は未取得 |
-| CX07 | 呼出し前後の採取手順を準備 | unverified | 呼出しなし。usage／actual_costはunknown |
+| CX07 | 子別4応答の帰属・重複除外・生usageを独立照合 | pass（トークン取得の範囲） | 各モデル1標本。クレジット換算・実費・一般的な節約効果はunknown |
 | CX08 | S06との比較手順を準備 | unverified | 拡張側本体ワークフロー未確認 |
 | CX09 | 所有物の配置・解除確認を準備 | unverified | 実機解除後の新会話未確認 |
 | CX10 | S07と復元手順を準備 | unverified | 拡張で再開・圧縮未再現 |
@@ -65,7 +65,7 @@ status: unverified
 
 ## 進捗
 
-Task 1～3: 準備済み。Task 4は事前確認を受領して入口・スキル読込を確認し、同一windowの2モデル利用可否をユーザーに確認した。次は当該拡張会話での固定モデル能力試験。Task 5の実機解除は未実施。試験配置は保持している。
+Task 1～3: 準備済み。Task 4の2モデル能力試験を受領して実ログ・DBの当該親子関係と照合済み。再試行0、追加子0、最大同時1子。残る判断ケースとTask 5の解除・新会話による非読込確認を準備している。これらが終わるまで試験配置を保持する。
 
 ## 参照取得の変更後sample
 
@@ -85,9 +85,26 @@ Task 1～3: 準備済み。Task 4は事前確認を受領して入口・スキ�
 
 ## 再開に必要な操作
 
-初回の新規会話による事前確認は完了した。次は同じ拡張会話へ `.routing-local/ROUTING-TEST-PROMPT.txt` の依頼を渡す。結果は `.routing-local/routing-results.md` と対応する子thread／turnのネイティブ記録へ保存する。依頼文は利用可否・容量・正式経路・既実施回数を再確認し、前提が変わっていれば該当呼出しだけ保留する。
+2モデル試験は完了しており再実行しない。次は同じ拡張会話へ `.routing-local/WORKFLOW-AND-CLEANUP-PROMPT.txt` を渡し、子を起動せず判断ケースと所有部分の解除を行う。その後、同じ試験フォルダの新しい拡張会話で `.routing-local/POST-REMOVAL-PROMPT.txt` を実行し、入口とスキルが取り込まれないことを確認する。
 
 終了をこの管理側会話で知らせてもらえば、保存結果と対応する実ログを読み取る。個人設定の変更、CLIの代理推論、観測だけの再呼出しはしない。試験終了後に所有物だけ解除し、別の新しい拡張会話で非読込を確認する。
+
+## 2モデル試験の独立照合（2026-11-11）
+
+試験結果のSHA-256は `b31b18b67b2344292d1b9a346a2aa23d86902ae58c9e9607deba9d2cfa0f5fa5`、索引は `b7eb62312006fce9e0c1cb032dea2a16f18bb528d58fb30e5f6aa3c3efa43d0e`。ローカルの `routing-verification.json` に照合結果を保存した。対象2子以外の会話内容・アカウント識別子・個人絶対パスは共有記録へ転記しない。
+
+| 要求モデル | 要求／runtime推論 | 子runtime報告context | fixture | input合計 | output合計 | total合計 |
+| --- | --- | ---: | --- | ---: | ---: | ---: |
+| gpt-6.1-sol | medium／medium | 475000 | 一致 | 33392 | 48 | 33440 |
+| gpt-6-luna | medium／medium | 258400 | 一致 | 32205 | 239 | 32444 |
+
+- 親のnative spawn callは2件のみ。両方とも正式引数のmodel、reasoning_effort=medium、fork_turns=noneを確認。messageは保存ログでは保護された不透明値なので復号せず、同一briefの根拠はnative側のlive呼出し記録と分ける。
+- state DBの当該親の `thread_spawn_edges` は索引の2子と一致。子それぞれのsession metadataはcodex_vscode・試験cwdと一致し、turn_contextおよびDBのmodel／reasoning_effortが要求と一致。自称による確認ではない。
+- Sol完了後にLunaを起動しており、同時実行なし。各子のtool callはfixture読み取りのexec 1件だけで、最終返答はfixtureの1行と完全一致。編集・ネットワーク・再委譲は観測されなかった。
+- 各子2応答・計4件の `token_usage_record` はthread／turnへ帰属し、response_idは全件一意。生フィールドの合計を索引と再計算照合した。cached inputはSol28288／Luna15744、reasoning outputはSol0／Luna142で、input／outputへ重ねて加算していない。
+- これらはruntimeの設定・context報告であり、provider返却のmodel／effort／contextではない。native結果の保守的な区別を維持し、model_effective・provider_model・effort_effective・最大出力はunknownとする。runtime値を無条件にprovider実効値へ転記しない。
+- 所有14件と保全対象19件のハッシュはすべて一致。設定・本体・fixtureは保持されている。条件付きの拒否枝は、派遣前の局所拒否を保証できないため呼び出さず、未実施と記録した。
+- Plusのクレジット実費は算出しない。同じ短い作業でもcache・推論・tool出力条件が異なり、各1標本のトークン差から一般的な節約率・能力優劣を主張しない。
 
 ## 受領した拡張事前確認の証拠（2026-11-11）
 

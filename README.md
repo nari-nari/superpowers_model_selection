@@ -4,7 +4,7 @@ Superpowersの公式本体を無改変で利用し、親がサブエージェン
 
 **現在: 文書実装・架空データの算術確認・無改変本体との判断シミュレーションを確認済み。VS Code Local／CopilotとCopilot CLIの実機受入は未検証です。** 対応するアカウントのモデルID・容量・設定・実効結果を確認するまで、導入成功・節約額・全体移行完了を主張しません。
 
-**Codex拡張: 文書実装・隔離試験配置に加え、拡張での入口・スキル読込を確認済み。モデル適用・費用比較は未検証です。** [Codex検証記録](docs/superpowers/validation/codex-extension.md)と[試験開始手順](docs/model-routing-setup.md#8-codex拡張の隔離試験)を参照してください。CLIや別チャットの結果は拡張実機の証拠にしません。
+**Codex拡張: 入口・スキル読込と、2モデルの正式指定・runtime設定・fixture実行・子別トークン取得を確認済み。provider実効モデル・クレジット実費は未検証です。** [Codex検証記録](docs/superpowers/validation/codex-extension.md)と[試験開始手順](docs/model-routing-setup.md#8-codex拡張の隔離試験)を参照してください。CLIや別チャットの結果は拡張実機の証拠にしません。
 
 ## 導入
 
@@ -38,7 +38,7 @@ Superpowersの公式本体を無改変で利用し、親がサブエージェン
 | 判断 | 同じ無改変上流に入口を追加する対照・変更後各5sample。質的回帰確認 |
 | 手動配置手順 | 一時ファイルで既存バイト保持・更新・ドリフト検出・解除を再現。実ユーザー設定は未変更 |
 | VS Code Local／Copilot・CLI | 実機未検証。code/copilot実行ファイル・アカウント・実効情報なし |
-| Codex拡張 | 準備・入口／スキル読込確認済み（CX02）。稼働拡張26.51021.22027、エンジン0.164.0-alpha.11.1、本体7.0.1。拡張の判断・モデル適用・費用比較、基準本体版との互換性は未検証 |
+| Codex拡張 | 入口／スキル読込（CX02）、2モデルの経路・runtime設定・fixture・子別トークン（CX03部分、CX07範囲限定）を確認。provider実効・費用・判断・解除・基準本体版互換性は未検証 |
 
 [互換性記録](compatibility/superpowers.md)と[検証記録](docs/superpowers/validation/independent-model-routing.md)に条件と未確認項目を記載しています。文書・シミュレーション確認と実機受入を分け、本体／クライアントの版変更時に影響ケースを再確認します。常設パッチ・自動更新・独自ルーター・MCP・CLIラッパー・強制課金上限は追加していません。
 
