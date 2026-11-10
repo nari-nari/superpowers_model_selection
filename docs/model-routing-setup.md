@@ -20,6 +20,7 @@ Localの指示読込設定と選択中harnessを確認する。CLIはエディ�
 
 - 方針版2026-11-11.1、料金表版2026-11-10.1、原本コミット、実行環境／クライアント版、本体ソースと版。
 - スキル原本、スキル配置先、入口ファイルの正確な絶対パス。
+- 単独で読める本手順書の配置先`setup_document`、SHA-256、自分が新規作成したか。個人配置の例は`~/.copilot/model-routing/model-routing-setup.md`、プロジェクト方式は`.github/model-routing/model-routing-setup.md`。これはスキル6ファイルと別の所有物として記録する。
 - 入口が元から存在したか、編集前ファイル全体のバイト保存先とSHA-256。既存の改行・BOM・日本語を保持する。UTF-8（UTF-8 BOM可）以外の形式はバイト追記せず、当該環境の対応形式と保全方法を確認できるまで導入を保留する。
 - 所有する6スキルファイルの相対パス・SHA-256一覧。未知の既存ファイルは所有物に含めない。
 - 入口へ挿入する管理部分全体のバイト保存先・SHA-256。追加した先頭改行も所有部分に含める。
@@ -32,6 +33,8 @@ SHA-256の確認例は `shasum -a 256 -- "対象ファイル"`（macOS等）。W
 ## 3. スキルと入口を配置する
 
 原本overlay/skills/model-selection/を参照資料込みで、決定したスキル配置先へコピーする。配置した6ファイルのパス集合とSHA-256を原本と比較する。確認前のモデルIDやアカウント利用可否を有効と仮定しない。
+
+本手順書`docs/model-routing-setup.md`も決定した`setup_document`へそのままコピーし、ハッシュ一致と単独で開けることを確認する。既存ファイルが未所有なら上書きしない。配置済みの環境ガイドからはローカル導入記録の`setup_document`を辿る。管理リポジトリの外へコピーしてもリンクが壊れないよう、本手順書は関連原本の場所を末尾のテキストで案内する。
 
 次の管理ブロックを入口へ追加する。内部にはoverlay/instructions/model-routing.mdの本文全体を実際にコピーし、その末尾に、配置を確認したSKILL.mdの絶対パスを `model_selection_skill: ` に続けて一行記載する。山括弧の説明をそのまま展開しない。管理リポジトリや上流キャッシュのパスを読込先にしない。
 
@@ -64,6 +67,8 @@ Localプロファイルでinstructions形式を選ぶ場合は、Agent Customiza
 
 所有部分が記録と一致する場合、新しい6ファイルを別の一時配置で比較・確認してから置換する。入口は保存した管理部分の完全一致を一意に確認し、そのバイト範囲だけを新しい本文とbindingへ置き換える。前後の利用者部分は現在のバイト列を保持し、古いファイル全体のバックアップで戻さない。変更前の所有部分と新しい所有ハッシュを記録し、新しい会話で確認する。同じ版の再導入は内容・所有記録が一致すれば何もしない。
 
+単独配置した手順書も前回の`setup_document`ハッシュを確認し、原本が変わった場合だけ置換・記録更新する。編集済みならそのファイルの更新を保留する。スキルと異なる版の手順を無断で残さず、互換性と差分を確認する。
+
 本体更新では取得元・導入版・クライアント版を再確認し、互換性を未検証へ戻す。モデル方針・派遣・レビュー・修正上限・ヘルパーを読み、影響ケースを再実行する。無改変で解決できない競合は再現条件と試した方法を記録し、常設パッチへ自動移行しない。料金表は独立して更新し、本体の版変更だけを理由に候補データを再設計しない。
 
 ## 6. 解除と旧方式へ戻す
@@ -71,6 +76,8 @@ Localプロファイルでinstructions形式を選ぶ場合は、Agent Customiza
 現在の管理部分が最後の所有バイト列と完全一致し、一意に見つかることを確認して、その部分だけを除去する。記録に含まれる追加先頭改行も除去する。初回にファイルが存在せず、解除後に空になった場合だけ、その入口ファイル自体を除去できる。解除後も利用者部分があればファイルを残す。
 
 スキル・任意workerは最後の所有パス集合とハッシュが一致した場合だけ所有ファイルを除去する。所有外ファイルや編集済みファイルがあれば停止し、利用者と差分を解消する。親ディレクトリは空で自分が作成した場合だけ除去し、~/.copilot/全体、他スキル、公式本体、全体設定を消さない。既存部分の最新内容が残ったことを確認する。
+
+単独手順書は解除手順を読み終えた後、自分が作成したファイルで前回ハッシュと一致する場合だけ除去できる。編集済み・未所有の手順書は保持する。記録・バックアップを残すかどうかは利用者が決める。
 
 旧改変版はGit保存コミット4792d5eから別の一時ディレクトリへ取り出せる。戻す場合は新しい入口とスキルを解除し、同じ環境で公式版が同時に読み込まれないように利用対象を切り替えてから、旧版を認識先へ戻す。切替は利用者の既存設定を保全して行い、公式版と旧改変版の混在を復元成功としない。
 
@@ -83,6 +90,9 @@ Localプロファイルでinstructions形式を選ぶ場合は、Agent Customiza
   "runtime": "<確認したharness>",
   "instruction_path": "<ローカルの正確な配置先>",
   "instruction_existed": true,
+  "setup_document": "<単独で開ける配置済み手順書の絶対パス>",
+  "setup_document_sha256": "<手順書全体のSHA-256>",
+  "setup_document_created": true,
   "original_backup": "<バイト保存先>",
   "original_sha256": "<元ファイルのSHA-256>",
   "managed_bytes_backup": "<挿入した全バイトの保存先>",
@@ -95,4 +105,4 @@ Localプロファイルでinstructions形式を選ぶ場合は、Agent Customiza
 
 これは記録の説明用で、実行設定ではない。原本と展開先の対応、前回ハッシュ、所有物、復元元を記録できれば、同じ情報を既存のローカル管理形式で持ってよい。
 
-[共通入口](../overlay/instructions/model-routing.md)・[選択原本](../overlay/skills/model-selection/SKILL.md)・[VS Code](../overlay/skills/model-selection/references/runtimes/vscode.md)・[CLI](../overlay/skills/model-selection/references/runtimes/copilot-cli.md)・[互換性](../compatibility/superpowers.md)・[検証記録](superpowers/validation/independent-model-routing.md)
+関連資料は取得した原本パッケージの`overlay/instructions/model-routing.md`、`overlay/skills/model-selection/SKILL.md`、`overlay/skills/model-selection/references/runtimes/`、`compatibility/superpowers.md`、`docs/superpowers/validation/independent-model-routing.md`を参照する。これらは原本内の場所であり、単独配置した本手順書からの相対リンクとは扱わない。

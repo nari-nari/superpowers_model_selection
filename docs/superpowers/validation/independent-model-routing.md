@@ -14,24 +14,24 @@ passは記載した証拠範囲だけ。実機欄が未検証ならネイティ�
 
 | ID | 条件 | 文書・算術・シミュレーション | 実機 |
 | --- | --- | --- | --- |
-| IR01 | 原本と独自機能の分離 | unverified | unverified |
-| IR02 | 移設の完全性 | unverified | unverified |
-| IR03 | 読み込み | unverified | unverified |
-| IR04 | 重複の解消 | unverified | unverified |
-| IR05 | 無改変本体との最終レビュー | unverified | unverified |
-| IR06 | 高リスクと再レビュー | unverified | unverified |
-| IR07 | 算術・未知値・境界値 | unverified | unverified |
-| IR08 | 明示モデル指定 | unverified | unverified |
-| IR09 | 拒否・Auto・上書き・変換 | unverified | unverified |
-| IR10 | コンテキストと推論 | unverified | unverified |
-| IR11 | 指定経路なし | unverified | unverified |
-| IR12 | 本体ワークフロー | unverified | unverified |
-| IR13 | 評価・調査・診断 | unverified | unverified |
-| IR14 | 反復と圧縮 | unverified | unverified |
-| IR15 | 導入・更新・解除 | unverified | unverified |
-| IR16 | 本体更新 | unverified | unverified |
-| IR17 | 報告の正確さ | unverified | unverified |
-| IR18 | 予算・ユーザー指定 | unverified | unverified |
+| IR01 | 原本と独自機能の分離 | pass: Task 1原本tree/blob/mode一致・Task 5本体コピー除去 | unverified |
+| IR02 | 移設の完全性 | pass: 台帳32差分・35走査・86所有、6抽出とリンク | unverified |
+| IR03 | 読み込み | pass: D01の手順・binding契約／実会話読込は未検証 | unverified |
+| IR04 | 重複の解消 | pass: 管理repoの旧コピー0／全利用先スコープは未検証 | unverified |
+| IR05 | 無改変本体との最終レビュー | pass: S01 changed全5sampleがa、原本側はb | unverified |
+| IR06 | 高リスクと再レビュー | pass: S02高リスクb・S05縮小再レビューを再評価 | unverified |
+| IR07 | 算術・未知値・境界値 | pass: F01～F05算術・JSON等値・S08未知値除外 | unverified |
+| IR08 | 明示モデル指定 | unverified: 利用アカウントの2実ID・ネイティブ適用なし | unverified |
+| IR09 | 拒否・Auto・上書き・変換 | pass: S03/S04判断／実際のAuto・拒否・変換は未検証 | unverified |
+| IR10 | コンテキストと推論 | pass: S04の80%超とunknown区別／実効設定未検証 | unverified |
+| IR11 | 指定経路なし | pass: S04で全changedが当該派遣保留 | unverified |
+| IR12 | 本体ワークフロー | pass: 原本保持・S06/全sampleの役割と修正上限維持 | unverified |
+| IR13 | 評価・調査・診断 | pass: S05/S06の評価固定・調査／診断役割維持 | unverified |
+| IR14 | 反復と圧縮 | pass: S07方針復元と条件不変時の再利用 | unverified |
+| IR15 | 導入・更新・解除 | pass: D02/D03一時バイト操作／実harness導入解除は未検証 | unverified |
+| IR16 | 本体更新 | pass: 版変更時の手順と互換性状態契約／実機更新未検証 | unverified |
+| IR17 | 報告の正確さ | pass: 要求／実効・見積／実費・文書／実機を分離 | unverified |
+| IR18 | 予算・ユーザー指定 | pass: S07予算保留・S09明示モデル維持、評価固定 | unverified |
 
 ## タスク証拠
 
@@ -62,3 +62,30 @@ GREEN: changedの5sampleが通常レビューa（基本見積0.11USD）、高リ
 Task 5: 開始時から無変更の所有86ファイルだけをgit rmで除去。原本のtree一致、独自7資料の存在、抽出データと算術、判断試験を確認して実施。git ls-files .agents/skillsは0件。元mainとGit保存コミットは維持。D04の全利用先スコープは実機未確認。
 
 Task 6: 個人／プロジェクト配置、LocalプロファイルとCopilot／CLIの違い、所有記録・更新・解除・旧方式復元を手順化。D02/D03を一時ファイルで再現し、空・日本語CRLF・UTF-8 BOM・末尾改行なし・空白パスで、既存部分保持、同版再導入の不変、所有外追記を保った更新・解除、管理部／SKILL編集／未所有ファイルのドリフト検出を確認。これは手順のバイト操作をPythonで再現した証拠であり、製品インストーラーやGUI実機試験ではない。実際のユーザー設定・MCP・親モデルは変更していない。
+
+## Task 7: 実機受入の残項目と再開手順
+
+実行環境で`shutil.which("code")`／`shutil.which("copilot")`がともにNone。対象アカウント、VS Code各harnessのセッション、ネイティブtask/runSubagentスキーマ、2候補の実効情報を利用できない。クライアントのインストール・ログイン・全体設定変更で試験を代替せず、Task 7 Step 2～4は未実施。
+
+対象PCでは[導入手順](../../model-routing-setup.md)の新会話確認から再開する。各方式でクライアント版、本体取得元・導入版、全読込ソース、入口とSKILL読込履歴、実ID2候補・容量・設定、呼出し引数と独立した実効情報、拒否／Auto／変換、解除後の既存部分保持を記録する。観測・再現不能な欄はunknown／unverifiedを保持し、[互換性](../../../compatibility/superpowers.md)をその方式だけ更新する。全3方式が揃うまで全体移行完了とは報告しない。
+
+実装時の判断: 一時worktreeでmainを保全、旧ヘルパーは元checkoutを読み取り利用、各sampleで独立ケースをまとめて質的評価、評価出力を別資料へ永続化。機密情報・実アカウントの料金取得や導入は行っていない。
+
+最終状態: 文書実装とローカル検証まで。実機受入・利用先展開・全体移行完了は未検証。独立した全体レビューを実施し、配置後のlifecycleリンク1件（2資料×2配置で再現）を修正・再検証した。
+
+全体スイート確認: python3 -m unittest discover -vは0 tests、exit 5（NO TESTS RAN）。既存の自動テストスイートはなく、上記の専用データ・参照・バイト操作・判断試験が今回の検証証拠。
+
+## 最終独立レビューと修正
+
+`final_review`はコミット範囲1a7d903..f8713f7とTask 7の作業差分、仕様・計画・台帳・原本を読み、原本tree一致、所有86ファイルの削除範囲、データ保持、入力ハッシュ、空白を独立確認した。要求設定はgpt-6.1-sol/medium、fork_turns none。実効モデル・設定・容量・使用量・実費はunknown。現在の契約価格がないため費用比較・節約主張なし。
+
+指摘: インストール後の2環境ガイドのlifecycle相対リンク。レビューのMinor評価を、実際の配置で必須参照確認が失敗する影響からImportantへ再評価した。D05で個人／プロジェクト双方の4参照が失敗するREDを確認後、単独手順書を別配置し、ローカル記録のsetup_documentと所有ハッシュで参照する方式へ修正。6スキルファイルの自己完結性と、別配置手順書の所有・更新・解除を維持した。配置リンクと単独手順書のGREEN、F01～F05、JSON等値、現行リンク・空白、既存バイト保持・ドリフト検出を再確認。追加の再レビューは行わず、対象回帰で修正を確認した。未解消のCritical／Important、保留Minorはなし。
+
+レビューで判定対象外とした項目への親判断:
+
+- 実機の発見・優先関係・モデル転送・Auto／拒否・実効設定・解除は、対象環境がないため未検証を維持する。誤っていた場合の影響は、実機でID・転送・解除が期待どおり動かないこと。
+- 外部の現行スキーマは2026-11-11に取得した公式資料を参照するが、実行時のライブ確認を必須にする。後続の資料再検索の一部はタイムアウトしたため、取得できていない追加内容を確認済みにしない。影響はバージョン差による拒否・設定欠落。
+- 評価の実効モデル・容量・実費・節約・統計的遵守率はunknown／未測定を維持する。影響は見積もりや少数sampleを実測効果と誤認すること。
+- GUI／エディターによるバイト保持は未検証。今回の一時バイト操作はGUI動作を保証せず、導入時に既存部分の比較を要求する。影響はエディターによる改行・エンコーディング変換。
+
+実装時の追加判断は、計画用一時領域の終了前に台帳から本記録へ転記した。判断試験の結果は質的証拠のままで、製品コード・独自インストーラーは追加していない。
