@@ -16,7 +16,7 @@
 | VS Code Local | unknown | unknown | unknown | unavailable | 未検証 |
 | VS Code Copilot | unknown | unknown | unknown | unavailable | 未検証 |
 | Copilot CLI | unknown | unknown | unknown | unavailable | 未検証 |
-| Codex VS Code拡張 | 稼働版unknown | unknown | unknown | unavailable | 準備済み・実機未検証 |
+| Codex VS Code拡張 | 26.51021.22027、engine 0.164.0-alpha.11.1 | 7.0.1 manifest宣言 | Sol／LunaのUI選択可を確認。子の実効ID未取得 | unavailable | 準備・入口／スキル読込確認済み。モデル適用未検証 |
 
 文書・シミュレーション確認と実機確認は別。従来のLocal／Copilot／CLIの3方式の必須受入が揃うまで、その移行を完了としない。Codexの確認は代替証拠にしない。未知の本体／クライアント版は未検証に戻し、派遣・モデル指示・レビュー・修正上限・ヘルパーの差分を読む。更新の自動適用・自動検知は提供しない。
 
@@ -30,9 +30,9 @@
 
 | 範囲 | 状態 | 根拠 |
 | --- | --- | --- |
-| 準備 | 準備済み | 契約別参照、8ファイル配布、所有ハッシュ、リンク、解除の一時再現 |
+| 準備 | 準備・読込確認済み | 契約別参照、8ファイル配布、所有ハッシュ、リンク、解除の一時再現。CX02は拡張session metadata・指示本文・読込call/outputで確認 |
 | 判断 | 未検証 | 参照取得sampleは判断全体や本体ワークフローの実機確認ではない |
-| モデル適用 | 未検証 | 拡張の読込・正式指定と実効IDが未取得 |
+| モデル適用 | 未検証 | 正式スキーマと候補2件のUI選択可は確認。子の呼出し・実効IDは未取得 |
 | 費用比較 | 未検証 | ChatGPT Plus確認のみ。使用枠・speed・呼出し帰属情報が未確認 |
 
-インストールファイルの2版は稼働版の証拠にしない。この会話に見える本体v7.0.1のパスも拡張本体の有効版を証明しない。基準v7.0.2へ自動更新していない。[Codex検証記録](../docs/superpowers/validation/codex-extension.md)のCX01～CX10で個別に判定する。
+稼働拡張版はユーザーが同じwindowのRunning Extensionsで確認、エンジン版・入口取込は対象拡張会話のネイティブログで照合した。拡張本体の有効ソースはhost-skills対応で確認したv7.0.1で、上流commit・原本一致はunknown。基準v7.0.2との差とfull-history overrideの文書矛盾を保持し、本体を自動更新・編集していない。[Codex検証記録](../docs/superpowers/validation/codex-extension.md)のCX01～CX10で個別に判定する。

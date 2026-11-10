@@ -6,18 +6,18 @@
 
 管理変更は隔離branch `feat/codex-extension-validation`。元mainと元の未追跡仕様・計画を保持。ChatGPTアカウントによるPlusログインはユーザー回答で確認。現在利用中の枠が含有枠か追加クレジットか、speedと残量、対象アカウントの実モデルIDは未確認。
 
-この会話は拡張由来と確認できていない。GUI操作ツールなし。CLIで推論を実行して代理試験にはしない。インストールファイルではCodex拡張 `26.51007.21434` と `26.51021.22027` を観測したが、稼働版はunknown。公式本体はこの会話のスキル一覧でv7.0.1のソースパスを観測しただけで、拡張側の有効ソース・版・原本一致は未確認。
+管理側のこの会話は拡張由来と確認できていない。GUI操作ツールなし。CLIで推論を実行して代理試験にはしない。別のCodex拡張会話から事前確認結果を受領し、そのsession metadataと指示本文を独立照合した。稼働拡張はユーザーのRunning Extensions確認により `26.51021.22027`、当該拡張会話のエンジンは `0.164.0-alpha.11.1`。拡張側の有効Superpowersはmanifest宣言v7.0.1で、上流commit・原本一致・基準v7.0.2との互換性は未検証。
 
 ## 受入台帳
 
 | ID | 文書・ローカル確認 | 拡張実機 | 理由／証拠 |
 | --- | --- | --- | --- |
-| CX01 | 環境・出所の記録を準備 | unverified | 稼働版・エンジン版・拡張本体ソースはunknown |
-| CX02 | 読込手順を準備 | unverified | 拡張の新会話と読込履歴が未取得 |
-| CX03 | 同一fixtureと2候補の手順を準備 | unverified | 実ID・正式引数・独立した実効IDが未取得 |
+| CX01 | 拡張会話の出所と稼働版・エンジン版・本体の有効ソースを確認 | unverified | VS Code稼働版・上流commit・基準版互換性は未取得。後述の部分証拠を保持 |
+| CX02 | 所有ハッシュと原本を照合 | pass | native session metadata・world_state・読込call/outputを独立確認。確認した会話と列挙ソースの範囲に限定 |
+| CX03 | 正式スキーマ、2候補と同一windowのUI利用可否を確認 | unverified | 2子の呼出し・独立した実効IDはまだ未取得 |
 | CX04 | 拒否・fallback・未知設定の期待動作を定義 | unverified | 拡張で未再現 |
 | CX05 | 既存S01・S02・S05・S08を再利用 | unverified | 実機の判断試験未実施 |
-| CX06 | 契約別料金の取得先を準備 | unverified | Plus確認のみ。課金枠・候補利用可否は未確認 |
+| CX06 | Plusをruntimeでも確認。追加クレジットなしの観測あり | unverified | 含有枠を支持するが応答単位bucket・換算根拠は未取得 |
 | CX07 | 呼出し前後の採取手順を準備 | unverified | 呼出しなし。usage／actual_costはunknown |
 | CX08 | S06との比較手順を準備 | unverified | 拡張側本体ワークフロー未確認 |
 | CX09 | 所有物の配置・解除確認を準備 | unverified | 実機解除後の新会話未確認 |
@@ -25,15 +25,15 @@
 
 実機passには各ケースの独立した証拠が必要。ファイル版のみ、CLI成功、モデル自己申告の3反例はすべてunverified。資料のチェック結果だけで受入を昇格しない。
 
-## 共通記録の初期値
+## 共通記録（CX01、事前確認反映）
 
 ```yaml
 case_id: CX01
 runtime: codex-vscode
-surface_evidence: unavailable
-extension_version: unknown
-engine_version: unknown
-superpowers_revision: unknown
+surface_evidence: local-preflight-20261111 # scoped native metadata + user Running Extensions report
+extension_version: 26.51021.22027
+engine_version: 0.164.0-alpha.11.1
+superpowers_revision: 7.0.1 # active bundle manifest; upstream commit and identity unknown
 routing_revision: 2026-11-11.2
 catalog_revision: 2026-11-11.codex.1
 billing_contract: chatgpt-plus-bucket-unknown
@@ -65,7 +65,7 @@ status: unverified
 
 ## 進捗
 
-Task 1～3: ケース・初期台帳、契約別参照、Codex用ガイドと記録形式、隔離試験配置、所有物の解除手順まで準備済み。Task 4は拡張の事前確認待ち。Task 5の状態表示は更新したが、実機解除は未実施。試験配置は再開用に保持している。
+Task 1～3: 準備済み。Task 4は事前確認を受領して入口・スキル読込を確認し、同一windowの2モデル利用可否をユーザーに確認した。次は当該拡張会話での固定モデル能力試験。Task 5の実機解除は未実施。試験配置は保持している。
 
 ## 参照取得の変更後sample
 
@@ -76,7 +76,7 @@ Task 1～3: ケース・初期台帳、契約別参照、Codex用ガイドと記
 - 開始コミットと現版のCopilotカタログ／プロファイルのJSONを `json.loads` で比較: 等値。
 - 既存F01～F05をDecimalで再計算: 全5件一致。
 - overlay・導入手順・新仕様／計画／ケース／検証記録・README・互換性の16資料: 相対リンクと空白を確認。
-- CX01～CX10が仕様・ケース・台帳で網羅されること、実機行がunverifiedのままであることを確認。
+- CX01～CX10が仕様・ケース・台帳で網羅されること、初回準備時点では全実機行がunverifiedであることを確認。その後CX02だけを証拠に基づきpassへ更新。
 - 試験配置: 全8スキルファイルのバイト一致、相対リンク、入口binding、単独手順書、fixtureを確認。案内等を含む所有配布物14件のSHA-256をローカル所有記録へ保存。
 - 使い捨てコピーで全14配布物の同版更新、1所有ファイルのドリフトで操作保留、未所有の日本語CRLFファイル保持、所有物だけの解除、ローカル結果記録の保持を再現。
 - `git diff --check`: 問題なし。確認用PythonはGit対象外の当該計画workspaceで使い捨て実行し、製品コード／インストーラー／常設テスト基盤は追加していない。
@@ -85,9 +85,24 @@ Task 1～3: ケース・初期台帳、契約別参照、Codex用ガイドと記
 
 ## 再開に必要な操作
 
-準備済み試験フォルダのSTART-HERE.mdを開き、VS CodeのCodex拡張の新規会話へPREFLIGHT-PROMPT.txtを貼る。まず子を起動しない。結果は試験フォルダの `.routing-local/preflight.md` に保存する依頼で、保存不能なら非機密な会話結果だけでもよい。
+初回の新規会話による事前確認は完了した。次は同じ拡張会話へ `.routing-local/ROUTING-TEST-PROMPT.txt` の依頼を渡す。結果は `.routing-local/routing-results.md` と対応する子thread／turnのネイティブ記録へ保存する。依頼文は利用可否・容量・正式経路・既実施回数を再確認し、前提が変わっていれば該当呼出しだけ保留する。
 
-この会話で終了を知らせてもらえばローカル結果を読み、読込と正式指定の前提を照合できる。対象拡張の有効ソース、稼働版、実ID2候補、容量と対応設定、usage観測が未確認なら該当試験は保留する。個人設定の変更、CLIの代理推論、観測だけの再呼出しはしない。試験終了後に所有物だけ解除し、別の新しい拡張会話で非読込を確認する。
+終了をこの管理側会話で知らせてもらえば、保存結果と対応する実ログを読み取る。個人設定の変更、CLIの代理推論、観測だけの再呼出しはしない。試験終了後に所有物だけ解除し、別の新しい拡張会話で非読込を確認する。
+
+## 受領した拡張事前確認の証拠（2026-11-11）
+
+ローカルの `.routing-local/preflight.md` のSHA-256は `258c3a8a8e4bb841bf00393105462d21fce799b53e4cb807cea5eaa3b4a805b6`。個人絶対パス・認証情報を共有記録へ転記せず、ローカルの `preflight-verification.json` に対応関係を保存した。
+
+- 対象rolloutの1行目は `originator=codex_vscode`、`source=vscode`、試験cwd一致、エンジン版一致。CLIの代理推論ではない。
+- 9行目の `world_state.state.agents_md` は試験フォルダと一致し、取り込まれたtextのバイト列が現AGENTS.mdと完全一致。入口SHA-256は `77dae52fc97a0c47e8688553c943eceb341105b06fa5d3657f7297eb3c020d5f`。
+- 33／39行目のread callと36／41行目の同call IDのoutputで、配置SKILL・Codex資料・手順書の実読込とexit 0を確認。名前の一覧掲載だけでpassにしていない。
+- 所有14ファイルのハッシュ、全8スキル資料と管理原本のバイト一致を再確認。確認対象ソースでは同名model-selectionはこの配置1件。有効Superpowersは7.0.1のソースであることをhost-skills対応とmanifestで確認。管理者ソースの未観測範囲はunknown。
+- native toolは `collaboration.spawn_agent`、`model`／`reasoning_effort` と `fork_turns="none"` の経路が公開されている。7.0.1の参照にあるfull-history override可の説明は現行ツール定義と矛盾するため採用しない。本体は編集しない。
+- ユーザーが同じwindowのモデル一覧でSol 6.1とLunaの選択可、Running Extensionsで拡張版を確認。正確なIDとの照合は当該ツールとキャッシュで行う。UIの選択可は試験候補の根拠で、子の成功・実効IDは各試行後に別確認する。
+- 試験条件は `fixed-capability-probe`、Sol `gpt-6.1-sol` とLuna `gpt-6-luna`、両方medium／fork none、各1回・同時1子。新しいforkと短いbriefの予測ピークを64,000 tokensと置き、当日キャッシュの小さい公称容量272,000の80%＝217,600以内で計画する。これは強制上限ではなく、子の実効容量・最大出力は実行後も観測できなければunknown。
+- rate limitのPlus表示と追加クレジットなしの観測、response単位のtoken_usage_recordの存在を確認。子の記録はまだない。集約残枠を子の費用へ帰属させず、actual_costと課金bucketはunknownのまま。
+
+[公式App Server文書](https://learn.chatgpt.com/docs/app-server)はmodel/listを候補と推論設定の取得に用いると説明する。ただし一覧やUIの掲載を完了した推論の証拠とは扱わない。設定によってはbundled catalogを返すことも[公式の別provider構成の説明](https://developers.openai.com/siwc/token-sharing-open-source/codex-app-server)に記載されており、その構成を現在の拡張が使っているとは推測しない。
 
 ## 全体レビューと実装判断
 
