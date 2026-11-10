@@ -269,6 +269,23 @@ When the baseline failure is a discipline failure, read
 the guidance: closing loopholes, the spirit-vs-letter line, the
 rationalization table, and the red-flags list.
 
+## Evaluation model contract
+
+**REQUIRED SUB-SKILL:** The experiment controller uses `model-selection`
+with `skill-evaluation`, the model-choice authority for test dispatches.
+The experiment's designated model/settings take precedence over ordinary
+cost ranking: record exact requested model, effort, runtime and exposed
+effective evidence, and keep them fixed across control/changed variants.
+Split results by model. If the runtime cannot verify the effective model,
+label that limitation instead of claiming actual model identity was fixed.
+
+Define the child's input context per variant before testing. A no-guidance
+control receives neither the skill under test nor newly added selection
+instructions through an accidental bootstrap. Keep model selection in the
+controller; do not ask evaluators to choose cheaper models or give them
+the pricing catalog. Preserve pressure scenarios, fresh contexts and
+required repetitions. Actual usage/cost not independently exposed is unknown.
+
 ## RED-GREEN-REFACTOR for Skills
 
 Follow the TDD cycle:

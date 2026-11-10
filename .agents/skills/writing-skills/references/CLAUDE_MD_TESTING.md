@@ -181,7 +181,12 @@ For each variant:
 
 ## Next Steps
 
-1. Create subagent test harness
+1. Create subagent test harness with a model/settings manifest: controller uses
+   model-selection with skill-evaluation, fixes the designated runtime model/effort
+   across all variants, records independent effective evidence or unknown, and
+   keeps the control free of the tested skill/new selection guidance. Do not
+   switch evaluation models for cost; group results by model and leave unexposed
+   actual costs unknown.
 2. Run NULL baseline on all 4 scenarios
 3. Test each variant on same scenarios
 4. Compare compliance rates

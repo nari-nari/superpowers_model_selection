@@ -63,16 +63,29 @@ Each agent gets:
 - **Constraints:** Don't change other code
 - **Expected output:** Summary of what you found and fixed
 
-### 3. Dispatch in Parallel
+### 3. Select Models, Then Dispatch in Parallel
+
+**REQUIRED SUB-SKILL:** Use `model-selection` for each independent scope; it
+is the model-choice authority. Qualify concrete models for that task's risk,
+tools and input size, then compare predicted completion costs. Research uses
+`research-audit`; fixes use the applicable implementation profile. Record the
+exact model/settings and requested/effective evidence in the controller's
+existing log, and apply them through the runtime adapter. Give workers the
+focused task and applied settings, not the pricing catalog or another
+selection assignment. Parallelism does not waive any task's qualification.
 
 Issue all three subagent dispatches in the same response — they run in parallel:
 
 ```text
-Subagent (general-purpose): "Fix agent-tool-abort.test.ts failures"
-Subagent (general-purpose): "Fix batch-completion-behavior.test.ts failures"
-Subagent (general-purpose): "Fix tool-approval-race-conditions.test.ts failures"
+Subagent (general-purpose, model=[EXACT ID selected for this scope]): "Fix agent-tool-abort.test.ts failures"
+Subagent (general-purpose, model=[EXACT ID selected for this scope]): "Fix batch-completion-behavior.test.ts failures"
+Subagent (general-purpose, model=[EXACT ID selected for this scope]): "Fix tool-approval-race-conditions.test.ts failures"
 # All three run concurrently.
 ```
+
+These are logical examples, not native tool schemas; only pass arguments
+that the live runtime exposes. Model choices also apply to the later
+three-agent example.
 
 Multiple dispatch calls in one response = parallel execution. One per response = sequential.
 

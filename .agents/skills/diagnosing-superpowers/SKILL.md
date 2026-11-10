@@ -16,6 +16,22 @@ decides whether superpowers changes.
 finding. Every number comes from the transcript or from a command you ran,
 never from memory.
 
+## Models for this diagnosis
+
+When steps 3, 6 or 7 call for dispatch, **REQUIRED SUB-SKILL:** use
+`model-selection`, the model-choice authority, before each analyst, scrub,
+scrub-audit or similar-session assignment. Preserve intake and conditional
+gates below. Use `research-audit` for research and require relevant evidence
+for privacy/security-sensitive auditing; do not treat read-only as risk-free.
+The controller records and applies exact models/settings through the runtime
+adapter, with requested/effective evidence. Children get their case/artifact
+paths, not the catalog or a selection assignment. Keep all seven analysts,
+scrub/audit independence and existing export approvals.
+
+These estimates concern the current delegation only. They are not evidence
+of the diagnosed session's past charges; historical spend must still come
+from that session's records. Unavailable actual costs remain unknown.
+
 ## Workflow
 
 Create a todo per step. Steps 5–7 run only on their stated condition.

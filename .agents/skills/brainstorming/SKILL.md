@@ -247,7 +247,13 @@ builder check.
 Otherwise, pick a sensible place and say where. Your human partner's
 preferences override both.
 
-**Builder check** (for a project): dispatch a fresh subagent with
+**Builder check** (for a project): first use `model-selection`, the model-choice
+authority. Qualify a reviewer for the design's actual domain/risk and input
+size (`task-review` for normal-risk checks; `design-high-risk` when relevant
+evidence is required), compare completion cost, and record the explicit
+model/settings and requested/effective evidence through the runtime adapter.
+Keep selection in the controller; pass design/task artifacts, not the catalog.
+Then dispatch a fresh subagent with
 `builder-check-prompt.md` in this directory. When you tell your human
 partner you're writing it up, say a reviewer will read it first and you
 may come back once with a few questions. Don't hand over the document

@@ -2,6 +2,21 @@
 
 **Load this reference when:** creating or editing skills, before deployment, to verify they work under pressure and resist rationalization.
 
+## Experiment model manifest
+
+Before any baseline/changed dispatch, the controller applies `model-selection`
+with `skill-evaluation` and records the designated exact runtime model,
+effort, runtime/version and observed effective metadata or unknown. Keep
+requested model/settings identical across variants, group results by model,
+and do not claim effective identity where the runtime hides it. Cost
+optimization cannot replace the designated evaluation model.
+
+Specify variant context explicitly: the control must not accidentally load
+the skill being tested or the new selection policy. Price comparison stays
+in the controller; children receive only their experiment inputs. Record
+sample, variant, expected/observed behavior and evidence. Keep actual cost
+unknown unless measured; simulation is not a native runtime test.
+
 ## Overview
 
 **Testing skills is just TDD applied to process documentation.**

@@ -1,7 +1,11 @@
 # Builder Check Prompt
 
 Dispatch a fresh general-purpose subagent with this prompt once the
-written design exists. Fill in the domain and the document path.
+written design exists. The controller first applies `model-selection`, the
+model-choice authority, and explicitly configures the selected runtime model
+and supported settings. Keep its requested/effective record outside the child
+prompt. Fill in the domain and document path; do not give the builder the
+pricing catalog or another model-selection assignment.
 
 ```
 You are a talented [DOMAIN, e.g. "software engineer", "event planner",
