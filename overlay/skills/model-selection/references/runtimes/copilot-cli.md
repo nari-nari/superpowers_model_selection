@@ -41,3 +41,7 @@ Repository instructions are not included in CLI custom subagents by default. Add
 On the user's machine record version, account-access checks, two supported model IDs and the native requested/effective results for the same short read-only delegation. Also record Auto/override handling, a rejected choice, and context/effort metadata that is unavailable. Do not change global defaults to make the test pass. If required metadata cannot be observed, leave that acceptance condition unverified.
 
 [Official CLI reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
+
+## Deployment lifecycle
+
+Follow the [manual setup, ownership, update and removal procedure](../../../../../docs/model-routing-setup.md). Preserve existing instruction bytes, record the installed bundle and managed-block hashes locally, and stop scoped replacement/removal on drift. A separate copy of the entry is derived from its source, not another policy authority. Restart the intended harness and verify inclusion; source preparation is not native acceptance.

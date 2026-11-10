@@ -46,3 +46,7 @@ No worker is enabled by this repository until account access, ID and routing hav
 Record VS Code/version, harness, catalog revision, IDs, account access, context/output limits and effort support. For each harness, use two eligible actual models for the same small read-only request such as finding the repository's package name; request the models via supported native routing and compare independent metadata. Check a refused model and an unavailable child-context control without fabricating success. Keep these results separate from Codex fixture simulations. Default context reserve is20%; unsupported controls stay inherited/unknown.
 
 [Instructions](https://code.visualstudio.com/docs/agents/reference/custom-instructions-reference) · [Subagents](https://code.visualstudio.com/docs/agents/run/subagents) · [Custom-agent file reference](https://code.visualstudio.com/docs/agents/reference/custom-agent-file-reference)
+
+## Deployment lifecycle
+
+Follow the [manual setup, ownership, update and removal procedure](../../../../../docs/model-routing-setup.md). Preserve existing instruction bytes, record the installed bundle and managed-block hashes locally, and stop scoped replacement/removal on drift. A separate copy of the entry is derived from its source, not another policy authority. Restart the intended harness and verify inclusion; source preparation is not native acceptance.
