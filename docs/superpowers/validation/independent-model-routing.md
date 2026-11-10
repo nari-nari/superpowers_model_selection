@@ -40,3 +40,21 @@ Task 1: 公式v7.0.2のskills treeと初期取込が完全一致。26変更／6�
 Task 2: 独自6ファイルを抽出。カタログとプロファイルのJSONが保存コミットと等値、F01～F05はDecimalで一致。管理用配置と一時.github/skills配置で参照リンクを確認。原本の選択ロジックは維持し、環境ガイドへの参照だけを追加した。
 
 Task 3: 方針2026-11-11.1の短い入口、配置先binding、正式な記録フィールド、環境ガイドの読込契約を作成。公式資料を2026-11-11再確認。D01の実際の取り込みは実機未検証。モデル名の文章指定と正式指定、実効不明と指定経路なしを区別した。
+
+## Task 4: 原本との判断比較
+
+要求評価設定: skill-evaluation / gpt-6.1-sol / medium / fork_turns none（全変種共通）。現在のCodex契約の価格は取得できず、費用比較は不可。Copilotカタログを価格根拠にしない。実効ID・設定・容量・費用はunknown。評価だけを委譲し、実装は親が行った。
+
+| sample | control S01 | control S02 | control S04 | changed S01 | changed S02 | changed S04 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | b | b | 文章指定で続行 | a | b | 当該派遣保留・入力整理 |
+| 2 | b | b | 自己レビューへ代替 | a | b | 当該派遣保留・入力整理 |
+| 3 | b | b | 文章指定で続行 | a | b | 当該派遣保留・入力整理 |
+| 4 | b | b | 指定不能で保留 | a | b | 当該派遣保留・入力整理 |
+| 5 | b | b | 文章指定で続行 | a | b | 当該派遣保留・入力整理 |
+
+観測RED: 通常最終レビューで全controlがbを固定選択。例: control-1の「Both workflows and final-review reference require the most capable available final reviewer, even though a costs $0.110 here.」。S04のcontrol-1/3/5は制御不能をledgerに記録して文章依頼で続行し、control-2は独立レビューを自己レビューへ代替した。control-4の保留は既に正しい挙動として記録し、失敗としない。
+
+GREEN: changedの5sampleが通常レビューa（基本見積0.11USD）、高リスクb（0.204USD）を選び、S04は正式経路の発見まで当該派遣を保留。S03は不一致の再評価と、指定可能だが実効観測不能なケースの継続／unknownを区別。S05～S09も各5sampleで評価固定・再レビュー・役割維持・原因別対処・期限超過・予算保留・未知値除外・明示指定維持を確認した。単価だけでlookupを常に最安としない回答は正しい条件付判断とした。
+
+5sampleの応答を親が読み、対象ケースに関する追加の方針修正は不要と判断した。[評価出力と入力ハッシュ](independent-model-routing-samples.md)を保存。少数のバッチ入力による質的回帰証拠であり、全作業・全モデル・全環境での遵守率や実際の節約額は示さない。正式なスキル発見・会話への取り込み・Copilot指定成功は別途未検証。
