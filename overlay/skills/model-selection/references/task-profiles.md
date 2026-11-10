@@ -2,6 +2,10 @@
 
 Use the catalog’s concrete `model_key`, not a cost/capability tier. These initial normal-risk assignments are **provisional design judgments** based on official descriptions, not measured success rates. Validate the task’s language/tools, risk, available capacity and actual account access before use. `recommended` requires relevant task/runtime evidence; `excluded` is a known mismatch. Prices are independent and live only in the catalog.
 
+## Contract scope
+
+The candidate JSON below belongs to the [Copilot catalog](copilot-model-catalog.md) and remains unchanged. For Codex, reuse the profile's task/risk requirements, then qualify candidates from the [Codex catalog](codex-model-catalog.md) and confirmed session evidence. A shared display name or model_key does not establish a shared runtime ID, account access, capacity or price. Missing Codex evidence is unknown; no Copilot candidate list is an implicit Codex allowlist. Keep high-risk suitability evidence separate from a model's general coding description. Fixed evaluator settings remain unchanged across variants.
+
 ```json
 [
   {

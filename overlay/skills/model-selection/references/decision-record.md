@@ -2,7 +2,7 @@
 
 ## Cost contract
 
-For each model call: `USD = sum(billable_tokens × corresponding_USD_per_million) / 1,000,000`. Sum the calls in the completion path; `AI credits = USD / 0.01` for this Copilot billing contract. Include growing history, tool-output input, output/reasoning, mandatory review, handoff and repair. Do not multiply first-call input by turn count and label it exact.
+First identify `billing_contract` and its applicable catalog. For a verified USD token contract: `USD = sum(billable_tokens × corresponding_USD_per_million) / 1,000,000`. Sum the calls in the completion path. **Only for the documented Copilot contract**, `AI credits = USD / 0.01`. Codex uses the [Codex catalog](codex-model-catalog.md); neither this conversion nor API token prices establish included ChatGPT usage. Include growing history, tool-output input, output/reasoning, mandatory review, handoff and repair. Do not multiply first-call input by turn count and label it exact.
 
 Apply the documented pricing buckets. Cache-write prices may replace or supplement other charges depending on the model contract: establish that basis before exact arithmetic, avoiding duplicate accounting. Unknown cache reuse means no assumed read discount; uncertain write charges belong in a conservative bound. Never substitute zero for unknown. If no defensible bound exists, the candidate is unpriced and needs clarification rather than a fake numeric estimate.
 
@@ -16,7 +16,7 @@ Append to the existing ledger/work log; don't paste full tables into every dispa
 
 ```yaml
 task: task-id / role
-runtime: vscode-local | vscode-copilot | copilot-cli
+runtime: vscode-local | vscode-copilot | copilot-cli | codex-vscode
 routing_revision: policy-revision
 catalog_revision: revision
 superpowers_revision: observed-revision | unknown
@@ -33,6 +33,21 @@ reason: qualification, representative alternatives and cost reason in one senten
 actual_cost: measured-value | unknown
 evidence: runtime-result-or-log-reference | unavailable
 ```
+
+For `codex-vscode`, use this additional record contract instead of interpreting `estimate_credits` as Copilot credits. Keep the legacy field for Copilot records only. `value` may be a defensible estimate range; actual_cost is measured only. The initial trial contract was unknown-plan; the user's later Plus confirmation makes it `chatgpt-plus-bucket-unknown` until the active usage bucket is established.
+
+```yaml
+surface_evidence: IDE-thread-or-native-log-reference | unavailable
+extension_version: observed-version | unknown
+engine_version: observed-version | unknown
+billing_contract: chatgpt-plus-bucket-unknown # refine with evidence
+selection_mode: cost-selection | fixed-capability-probe | fixed-evaluation
+estimate_cost: {value: unknown, unit: unknown} # codex-credit or verified contract unit
+actual_cost: {value: unknown, unit: unknown}
+usage: {value: unknown, source: unavailable, attribution: unknown}
+```
+
+Use `surface_evidence` to identify the extension session and separate CLI/other-chat evidence. Preserve requested/effective model, effort and context fields from the common record. A supplied placeholder or requested setting is not an observed value. For included subscription limits with no verified per-call conversion, token counts and elapsed time are auxiliary usage, not credit costs. Gather available usage before and after each trial call; do not repeat calls just to recover missing measurements.
 
 An inherited setting needs the parent's observed setting as evidence; otherwise use unknown. A native reported model mismatch requires re-pricing and rechecking capability/permission before proceeding. If acceptable, record and continue; otherwise hold the next affected dispatch. No observation can reverse already-incurred charges.
 

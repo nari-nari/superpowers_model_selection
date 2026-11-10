@@ -1,16 +1,18 @@
 # Independent Superpowers Model Routing
 
-Superpowersの公式本体を無改変で利用し、親がサブエージェントの必要能力とGitHub Copilotの予想総コストを比較するための独立したMarkdown群です。既存の料金計算・能力プロファイルを再利用し、本体への独自変更を分離しました。
+Superpowersの公式本体を無改変で利用し、親がサブエージェントの必要能力と契約に応じた予想総コストを比較するための独立したMarkdown群です。Copilot用資料に加え、Codex拡張向けの契約・指定経路・記録資料を追加しています。
 
 **現在: 文書実装・架空データの算術確認・無改変本体との判断シミュレーションを確認済み。VS Code Local／CopilotとCopilot CLIの実機受入は未検証です。** 対応するアカウントのモデルID・容量・設定・実効結果を確認するまで、導入成功・節約額・全体移行完了を主張しません。
+
+**Codex拡張: 文書実装・隔離試験配置まで準備済み。拡張での読み込み・モデル適用・費用比較は未検証です。** [Codex検証記録](docs/superpowers/validation/codex-extension.md)と[試験開始手順](docs/model-routing-setup.md#8-codex拡張の隔離試験)を参照してください。CLIや別チャットの結果は拡張実機の証拠にしません。
 
 ## 導入
 
 [導入・更新・解除手順](docs/model-routing-setup.md)に従って、利用先へ次を別々に配置します。
 
 1. [公式Superpowers](https://github.com/obra/superpowers)を当該環境の公式導入経路で導入します。本体のスキルやキャッシュは編集しません。
-2. [選択スキル](overlay/skills/model-selection/SKILL.md)を参照資料込みで認識先へ配置します。個人配置は`~/.copilot/skills/model-selection/`、プロジェクト方式は対応する`.github/skills/model-selection/`です。
-3. [共通入口](overlay/instructions/model-routing.md)の本文を、Localのユーザープロファイル指示、またはCopilot／CLIが読む個人・プロジェクト指示へ追加し、確認済みの配置先bindingを付けます。既存の指示は保持します。
+2. [選択スキル](overlay/skills/model-selection/SKILL.md)を全参照資料込みで認識先へ配置します。Copilot個人配置は`~/.copilot/skills/model-selection/`、プロジェクト方式は対応する`.github/skills/model-selection/`。Codex隔離試験では`.agents/skills/model-selection/`です。
+3. [共通入口](overlay/instructions/model-routing.md)の本文を、各環境が読む指示へ追加し、確認済みの配置先bindingを付けます。Codex隔離試験では`AGENTS.md`を使います。既存の指示は保持します。
 4. 新しい会話で読込ソース・方針版・モデルの正式指定と実効値を確認します。同名の旧改変版や別のmodel-selectionコピーを混在させません。
 
 `overlay/`は管理用原本であり、このリポジトリを開くだけでは全プロジェクトに適用されません。リンクやスキル一覧への表示だけでも取り込み・適用の証拠にはなりません。配置先と動作はharnessごとに確認します。
@@ -25,6 +27,8 @@ Superpowersの公式本体を無改変で利用し、親がサブエージェン
 
 [料金カタログ](overlay/skills/model-selection/references/copilot-model-catalog.md)はCopilot AIクレジット契約用のスナップショットです。アカウント利用可否・VS Code ID・容量は未確認。別サービスの価格として使いません。候補更新は料金の公式根拠・確認日・版を伴い、モデル名から補完しません。鮮度目安30日、通常contextの余裕20%、数値予算は明示指定時のみです。
 
+[Codexカタログ](overlay/skills/model-selection/references/codex-model-catalog.md)は別管理です。ChatGPT Plusの含有枠と追加クレジットを区別し、適用契約が未確認なら費用選択を保留します。明示的に承認された固定モデルの能力試験は費用選択と別記録にします。
+
 ## 対応と検証
 
 | 対象 | 現在の証拠 |
@@ -34,6 +38,7 @@ Superpowersの公式本体を無改変で利用し、親がサブエージェン
 | 判断 | 同じ無改変上流に入口を追加する対照・変更後各5sample。質的回帰確認 |
 | 手動配置手順 | 一時ファイルで既存バイト保持・更新・ドリフト検出・解除を再現。実ユーザー設定は未変更 |
 | VS Code Local／Copilot・CLI | 実機未検証。code/copilot実行ファイル・アカウント・実効情報なし |
+| Codex拡張 | 準備済み。参照取得の対照・変更後各1sampleと配置ハッシュ・解除操作の一時再現を確認。拡張の判断・モデル適用・費用比較は未検証 |
 
 [互換性記録](compatibility/superpowers.md)と[検証記録](docs/superpowers/validation/independent-model-routing.md)に条件と未確認項目を記載しています。文書・シミュレーション確認と実機受入を分け、本体／クライアントの版変更時に影響ケースを再確認します。常設パッチ・自動更新・独自ルーター・MCP・CLIラッパー・強制課金上限は追加していません。
 
