@@ -157,4 +157,3 @@ Declined-to-judge decisions by parent:
 7. Native/effective/billing/statistical topics set aside by the reviewer are intentionally unverified/unknown/qualitative as described above, not accepted as measured success. Risks are listed with those three decisions.
 
 Deferred minors: none. Full native end-to-end acceptance remains incomplete. Implementation contains no runtime code/dependency changes, MCP changes or edits to user-global settings.
-
