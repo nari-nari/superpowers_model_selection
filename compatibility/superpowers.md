@@ -16,7 +16,7 @@
 | VS Code Local | unknown | unknown | unknown | unavailable | 未検証 |
 | VS Code Copilot | unknown | unknown | unknown | unavailable | 未検証 |
 | Copilot CLI | unknown | unknown | unknown | unavailable | 未検証 |
-| Codex VS Code拡張 | 26.51021.22027、engine 0.164.0-alpha.11.1 | 7.0.1 manifest宣言 | gpt-6.1-sol／gpt-6-lunaの指定受理・子runtime設定・実行を確認 | runtime metadataあり／provider返却なし | 読込・経路・fixture・子別トークン確認済み。provider実効・費用は未検証 |
+| Codex VS Code拡張 | 26.51021.22027、engine 0.164.0-alpha.11.1 | 7.0.1 manifest宣言 | gpt-6.1-sol／gpt-6-lunaの指定受理・子runtime設定・実行を確認 | runtime metadataあり／provider返却なし | 読込・経路・fixture・子別トークン・架空判断・解除を確認して試験終了。provider実効・費用は未検証 |
 
 文書・シミュレーション確認と実機確認は別。従来のLocal／Copilot／CLIの3方式の必須受入が揃うまで、その移行を完了としない。Codexの確認は代替証拠にしない。未知の本体／クライアント版は未検証に戻し、派遣・モデル指示・レビュー・修正上限・ヘルパーの差分を読む。更新の自動適用・自動検知は提供しない。
 
@@ -31,8 +31,10 @@
 | 範囲 | 状態 | 根拠 |
 | --- | --- | --- |
 | 準備 | 準備・読込確認済み | 契約別参照、8ファイル配布、所有ハッシュ、リンク、解除の一時再現。CX02は拡張session metadata・指示本文・読込call/outputで確認 |
-| 判断 | 未検証 | 参照取得sampleは判断全体や本体ワークフローの実機確認ではない |
+| 判断 | 架空6ケース確認済み／実ワークフロー未検証 | 通常review、高リスク、縮小review、評価固定、原因分離、復元・予算、未知候補を親が判断。実際の修正ループ・独立review・圧縮は未実施 |
 | モデル適用 | 経路・runtime設定確認済み／provider実効未検証 | 正式指定で2子の同一fixtureが成功。子別runtime model・medium・context報告を確認。provider返却モデル／推論はunknown |
 | 費用比較 | 子別トークン確認済み／実費未検証 | 全4responseを帰属・重複除外。Plus含有枠のクレジット換算と実効speed・bucketはunknown |
 
 稼働拡張版はユーザーが同じwindowのRunning Extensionsで確認、エンジン版・入口取込は対象拡張会話のネイティブログで照合した。拡張本体の有効ソースはhost-skills対応で確認したv7.0.1で、上流commit・原本一致はunknown。基準v7.0.2との差とfull-history overrideの文書矛盾を保持し、本体を自動更新・編集していない。[Codex検証記録](../docs/superpowers/validation/codex-extension.md)のCX01～CX10で個別に判定する。
+
+試験用の入口・スキル等の所有13ファイルは解除し、結果保持用.gitignoreとGit対象外の証拠を保存した。別の新規Codex拡張会話で入口・binding・model-selectionが実際に取り込まれないことを確認した（CX09）。この記録は限定した試験の終了であり、全面的な対応・常設導入・Copilotの受入完了ではない。
